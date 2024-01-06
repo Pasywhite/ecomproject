@@ -1,4 +1,43 @@
+<script>
+    const show = (ele)=>{
+    const getHeight = ()=>{
+      ele.style.display='block';
+      const height = ele.scrollHeight + 'px';
+      ele.style.display='';
+      return height;
+    }
+    const height = getHeight();
+    ele.classList.add('is-visible');
+    ele.style.height= height;
+    window.setTimeout(()=>{
+      ele.style.height= '';
+    },350)
+   
+  }
 
+  const hide =(ele)=>{
+    ele.style.height= ele.scrollHeight + 'px';
+    window.setTimeout(()=>{
+      ele.style.height= 0;
+    },1);
+
+    window.setTimeout(()=>{
+      ele.classList.remove('is-visible');
+    },350)
+  }
+
+  const toggle = (e)=>{
+    e.preventDefault();
+    const target = e.target.getAttribute('href');
+    const targetEle = document.querySelector(target);
+    
+    if(targetEle.classList.contains('is-visible')){
+      hide(targetEle)
+    }else{
+     show(targetEle)
+    }
+  }
+</script>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
       <a class="sidebar-brand brand-logo" href="index.html"><img src="{{ asset('admin/assets/images/logo.svg') }}" alt="logo" /></a>
@@ -65,22 +104,28 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item menu-items">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+   
+      
+      <li class='nav-item menu-items'>
+
+        <a class='nav-link' href='#product_dropdown' onclick='toggle(event)'>
+          
           <span class="menu-icon">
             <i class="mdi mdi-laptop"></i>
           </span>
           <span class="menu-title">Products</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        
+        <div class='collapsable toggle-content' id='product_dropdown'>
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.viewproduct') }}">Add Products</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.showallproduct') }}">Show Products</a></li>
-
           </ul>
         </div>
       </li>
+
+    
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('admin.viewcategory') }}">
           <span class="menu-icon">

@@ -5,3 +5,13 @@
 [x-cloak] {
     display: none;
 }
+.toggle-content{
+    display: none;
+    height: 0;
+    overflow: hidden;
+    transition:  all 350ms ease-in-out;
+}
+.toggle-content.is-visible{
+    display: block;
+    height: auto;
+}
